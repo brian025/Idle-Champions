@@ -14,7 +14,7 @@ GUIFunctions.UseThemeTextColor("TableTextColor")
 Gui, ICScriptHub:Add, ListView, x15 y+8 w525 h650 vMemoryFunctionsViewID, Function|x|Value
 
 GUIFunctions.UseThemeListViewBackgroundColor("MemoryFunctionsViewID")
-
+GUIFunctions.UseThemeTextColor("DefaultTextColor")
 class IC_MemoryFunctionsFullRead_Component
 {
     static exclusionList := [ "__Init", "__new",  "BinarySearchList", "GenericGetValue", "OpenProcessReader", "ReadConversionCurrencyBySlot", "BuildChestIndexList", "InitializeChestsIndices", "ReadUserHash", "ReadUserID" ]
@@ -79,7 +79,7 @@ class IC_MemoryFunctionsFullRead_Component
                         currentObject := ActiveEffectKeySharedFunctions[k][k1]
                         fncToCall := ObjBindMethod(currentObject, k2)
                         value := v2.Maxparams >= 2 ? fncToCall.Call(valueToPass) : fncToCall.Call()
-                        value := IsObject(value) ? ArrFnc.GetDecFormattedArrayString(value) : value
+                        value := IsObject(value) ? ArrFnc.GetAlphaNumericArrayString(value) : value
                         value := value == "" ? "-- ERROR --" : value
                         valuePassedString := (v2.Maxparams >= 2 ? "(" . valueToPass . ")" : "")
                         LV_Add(, parameterString, valuePassedString, value)
@@ -93,7 +93,7 @@ class IC_MemoryFunctionsFullRead_Component
     SwapPointers()
     {
         MsgBox, Closing Script Hub and running the pointer version picker.
-        versionPickerLoc := A_LineFile . "\..\..\..\SharedFunctions\IC_VersionPicker.ahk"
+        versionPickerLoc := A_LineFile . "\..\..\IC_Core\IC_VersionPicker.ahk"
         Run, %versionPickerLoc%
         ExitApp
     }

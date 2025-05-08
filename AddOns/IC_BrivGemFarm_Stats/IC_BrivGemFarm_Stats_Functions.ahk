@@ -161,14 +161,14 @@ class IC_BrivGemFarm_Stats_Component
 
         GUIFunctions.UseThemeTextColor("SpecialTextColor2", 700)
         Gui, ICScriptHub:Add, Text, x%g_LeftAlign% y+10, Total Gems:
-        Gui, ICScriptHub:Add, Text, vGemsTotalID x+2 w50, ; % GemsTotal
+        Gui, ICScriptHub:Add, Text, vGemsTotalID x+2 w200, ; % GemsTotal
         Gui, ICScriptHub:Add, Text, x%g_LeftAlign% y+2, Gems per hour:
         Gui, ICScriptHub:Add, Text, vGemsPhrID x+2 w200, ; % GemsPhr
         
         GUIFunctions.UseThemeTextColor("WarningTextColor", 700)
         GuiControlGet, pos, ICScriptHub:Pos, bossesPhrID
         posX += 70
-        Gui, ICScriptHub:Add, Text, vNordomWarningID x%posX% y%posY% w260,
+        Gui, ICScriptHub:Add, Text, vNordomWarningID x%posX% y%posY% w265,
         GuiControlGet, pos, ICScriptHub:Pos, OnceRunGroupID
         g_DownAlign := g_DownAlign + posH -5
         GUIFunctions.UseThemeTextColor()
@@ -193,6 +193,8 @@ class IC_BrivGemFarm_Stats_Component
         Gui, ICScriptHub:Add, Text, vBadAutoprogressesID x+2 w200,  
         Gui, ICScriptHub:Add, Text, x%g_LeftAlign% y+2, Calculated Target Stacks:
         Gui, ICScriptHub:Add, Text, vCalculatedTargetStacksID x+2 w200,
+        Gui, ICScriptHub:Add, Text, x%g_LeftAlign% y+2 vHybridStatsCountTitle, ForceOfflineRunThreshold Count:
+        Gui, ICScriptHub:Add, Text, vHybridStatsCountValue x+2 w200,
         GuiControlGet, pos, ICScriptHub:Pos, BrivGemFarmStatsID
         g_DownAlign := g_DownAlign + posH -5
         g_TabControlHeight := Max(g_TabControlHeight, 700)
@@ -294,7 +296,7 @@ class IC_BrivGemFarm_Stats_Component
     UpdateStartLoopStats()
     {
         ; Do not calculate stacks if game/script do not appear to be in a normal state.
-        if(IsObject(!this.SharedRunData) OR this.SharedRunData.LoopString != "Main Loop") 
+        if(!IsObject(this.SharedRunData) OR this.SharedRunData.LoopString != "Main Loop") 
             return
         Critical, On
         if !this.isStarted
@@ -376,14 +378,25 @@ class IC_BrivGemFarm_Stats_Component
             foundNordom := g_SF.IsChampInFormation(100, formation)
             formation := g_SF.Memory.GetFormationByFavorite(3)
             foundNordom := foundNordom OR g_SF.IsChampInFormation(100, formation)
-            GuiControl, ICScriptHub:, NordomWarningID, % (foundNordom ? "WARNING: Nordom found. Verify BPH." : "")
-
+            ; Check if Mechanus (+10% core xp) bonus exists
+            foundMechanusBlessing := g_SF.Memory.GetXPBlessingSlot()
+            foundXPMod := foundMechanusBlessing OR foundNordom
+            GuiControl, ICScriptHub:, NordomWarningID, % (foundXPMod ? "Nordom/Mechanus found. Verify BPH." : "")
             currentNordomXP := ActiveEffectKeySharedFunctions.Nordom.NordomModronCoreToolboxHandler.ReadAwardedXPStat()
             currentCoreXP := g_SF.Memory.GetCoreXPByInstance(this.ActiveGameInstance)
-            if(foundNordom AND currentCoreXP AND currentCoreXP)
-                this.BossesPerHour := Round( ( ( currentCoreXP - this.CoreXPStart + ( this.NordomXPStart - currentNordomXP ) ) / 5 ) / dtTotalTime, 2 )
+            xpGain := currentCoreXP - this.CoreXPStart 
+            if(foundXPMod AND foundNordom AND currentCoreXP AND currentCoreXP)
+                ; xpGain := ( xpGain / 1.1 ) + ( this.NordomXPStart - currentNordomXP ) ; Other possible calculation
+                xpGain := ( xpGain + (this.NordomXPStart - currentNordomXP ) ) / 1.1
+            else if(foundNordom AND currentCoreXP AND currentCoreXP)
+                xpGain := xpGain + ( this.NordomXPStart - currentNordomXP )
+            else if (foundXPMod AND currentCoreXP AND currentCoreXP)
+                xpGain := xpGain / 1.1
             else if(currentCoreXP)
-                this.BossesPerHour := Round( ( ( currentCoreXP - this.CoreXPStart ) / 5 ) / dtTotalTime, 2 )
+                xpGain := currentCoreXP - this.CoreXPStart  
+            ; unmodified levels completed / 5 = boss levels completed
+            if(currentCoreXP)
+                this.bossesPerHour := Round( (xpGain / 5) / dtTotalTime, 2)
             GuiControl, ICScriptHub:, bossesPhrID, % this.BossesPerHour
 
             this.GemsTotal := ( g_SF.Memory.ReadGems() - this.GemStart ) + ( g_SF.Memory.ReadGemsSpent() - this.GemSpentStart )
@@ -460,7 +473,18 @@ class IC_BrivGemFarm_Stats_Component
             GuiControl, ICScriptHub:, TotalBossesHitID, % SharedRunData.TotalBossesHit
             GuiControl, ICScriptHub:, TotalRollBacksID, % SharedRunData.TotalRollBacks
             GuiControl, ICScriptHub:, BadAutoprogressesID, % SharedRunData.BadAutoProgress
-            GuiControl, ICScriptHub:, CalculatedTargetStacksID, % SharedRunData.TargetStacks 
+            GuiControl, ICScriptHub:, CalculatedTargetStacksID, % SharedRunData.TargetStacks
+            runsMax := g_BrivUserSettings[ "ForceOfflineRunThreshold" ]
+            if (runsMax > 1)
+            {
+                GuiControl, ICScriptHub:, HybridStatsCountTitle, ForceOfflineRunThreshold Count:
+                GuiControl, ICScriptHub:, HybridStatsCountValue, % Mod( g_SF.Memory.ReadResetsCount(), runsMax )
+            }
+            else
+            {
+                GuiControl, ICScriptHub:, HybridStatsCountTitle,  
+                GuiControl, ICScriptHub:, HybridStatsCountValue,  
+            }
         }
         catch
         {

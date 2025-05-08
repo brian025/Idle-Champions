@@ -1,3 +1,56 @@
+April 11, 2025
+    Updated 64 bit Imports for v618.2. (Steam only)
+    Fixed methods that used the now removed variable of "allUpgrades".
+
+December 10, 2024
+    Updated 64 bit Imports for v600. (Steam only)
+    Updated pointers for EGS v600.
+
+November 6, 2024
+    Updated 64 bit Imports for v596. (Steam only)
+    Updated pointers for EGS v596.
+    
+August 17, 2024
+    Updated 64 bit Imports for v588. (Steam only)
+    Updated stats addon to account for Blessing of Mechanus.
+
+August 14, 2024
+    Added Ellywick hero functions.
+    Added Steam v587 pointers.
+    Updated MemoryFunctionsFullRead to be able to read text based arrays for hero handlers.
+    Updated Addons.md.
+
+August 3, 2024
+    Updated 64 bit Imports for v587. (Steam only)
+    Merged Emmote's pull request to update stats addon to show current tally of runs for Hybrid runs.
+    Merged EoD's pull request to fix malformed saves that can cause recovery attempts for failed runs to fail.
+    Merged EoD's pull request to update Pointer/Offset documentation from PDF to markdown.
+
+June 5, 2024
+    Merged ImpEGamer's fix for modron reset check.
+    Updated ActiveEffectKeyHandler to check for new effectKeysByHashedKeyName value since old one was removed on steam.
+    Updated 64 bit Imports for v580. For Steam ONLY which uses the new effectKeysByHashedKeyName variable.
+
+April 24, 2024
+    Merged scancode override file PR request.
+    Updated Nerds addon location in Addons.md.
+    Added sleeps to two busy waiting while loops.
+    Updated the KeyHelper write function to default to using the backtick character. Previous scancode is commented out.
+
+March 30, 2024
+    Fixed reading Briv's slot 4 enchant level on steam version.
+    Fixed click damage not working on non us-en keyboard layouts.
+
+March 29, 2024
+    Added backwards compatible IC_UpdateClass_Class to allow old addons to function while addon developers update addons.
+    Updated 64 bit Imports for v569. (Steam Only)
+
+March 21, 2024
+    Released version 4.0.0 (see news for changes).
+    Updated 64 bit Imports for v567. (Steam only)
+    Updated pointers for Steam v567.
+    Updated 64 bit Imports for v568. (Steam Only)
+
 December 6, 2023
     Updated 64 bit Imports for v553.
     Updated EGS pointers for v553.
