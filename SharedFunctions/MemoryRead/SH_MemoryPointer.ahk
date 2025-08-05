@@ -6,11 +6,27 @@
 #include %A_LineFile%\..\SH__MemoryManager.ahk
 #include %A_LineFile%\..\SH_GameObjectStructure.ahk
 
-class SH_MemoryPointer
+class SH_BasePtr
 {
     ModuleOffset := 0
     StructureOffsets := 0
     BaseAddress := ""
+    Is64bit := True
+
+    __new(baseAddress := 0, moduleOffset := 0, structureOffsets := 0, is64Bit := True)
+    {
+        this.BaseAddress := baseAddress
+        this.ModuleOffset := moduleOffset
+        this.StructureOffsets := structureOffsets
+        this.Is64Bit := is64Bit
+    }
+}
+
+class SH_MemoryPointer
+{
+    ModuleOffset := 0
+    StructureOffsets := 0
+    BasePtr := {}
     Is64Bit := ""
 
     __new(moduleOffset := 0, structureOffsets := 0)
@@ -33,25 +49,21 @@ class SH_MemoryPointer
         this.Refresh()
     }
 
-    GetVersion()
+    ResetBasePtr(currentObj)
     {
-        return "v0.0.2, 2023-09-03"
-    }
-
-    Refresh()
-    {
-        ; _MemoryManager should only be refreshed outside of MemoryPointer, but must be refreshed before refreshing a memory pointer.
-        _MemoryManager.Refresh()       
-        this.BaseAddress := _MemoryManager.baseAddress+this.ModuleOffset
-        this.Is64Bit := _MemoryManager.is64Bit
-    }
-
-    ResetCollections()
-    {
+        this["basePtr"] := currentObj.BasePtr
         for k,v in this
         {
-            if(IsObject(v) AND ObjGetBase(v).__Class == "GameObjectStructure")
-                this[k].ResetCollections()
+            if(IsObject(v) AND ObjGetBase(v).__Class == "GameObjectStructure" AND v.FullOffsets != "")
+            {
+                v.BasePtr := currentObj.BasePtr
+                v.ResetBasePtr(this) ; Go into game objects
+            }
         }
+    }
+
+    GetVersion()
+    {
+        return "v0.0.3, 2025-08-03"
     }
 }
