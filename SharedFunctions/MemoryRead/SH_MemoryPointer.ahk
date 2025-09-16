@@ -13,12 +13,13 @@ class SH_BasePtr
     BaseAddress := ""
     Is64bit := True
 
-    __new(baseAddress := 0, moduleOffset := 0, structureOffsets := 0, is64Bit := True)
+    __new(baseAddress := 0, moduleOffset := 0, structureOffsets := 0, className := "")
     {
         this.BaseAddress := baseAddress
         this.ModuleOffset := moduleOffset
         this.StructureOffsets := structureOffsets
-        this.Is64Bit := is64Bit
+        this.Is64Bit := _MemoryManager.is64Bit
+        this.ClassName := className
     }
 }
 
@@ -64,6 +65,18 @@ class SH_MemoryPointer
 
     GetVersion()
     {
-        return "v0.0.3, 2025-08-03"
+        return "v0.0.4, 2025-08-06"
+    }
+
+    ; Debugging function - saves full 
+    Print()
+    {
+        global g_string
+        FileDelete, % A_LineFile . "\..\ObjectsLog.json"
+        for k,v in this
+        {
+            if(IsObject(v) AND ObjGetBase(v).__Class == "GameObjectStructure")
+                v.BuildNames(This.Base.Base.__Class . ".")
+        }
     }
 }

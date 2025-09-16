@@ -5,11 +5,13 @@ class IC_CrusadersGameDataSet_Class extends SH_MemoryPointer
 {
     GetVersion()
     {
-        return "v2.1.1, 2025-08-03"
+        return "v2.1.3, 2025-08-11"
     }
     
     Refresh()
-    {
+    {        
+        if (_MemoryManager.is64bit == "") ; Don't build offsets if no client is available to check variable types.
+            return
         baseAddress := _MemoryManager.baseAddress["mono-2.0-bdwgc.dll"]+this.ModuleOffset
         if (this.BasePtr.BaseAddress != baseAddress)
         {
@@ -25,7 +27,7 @@ class IC_CrusadersGameDataSet_Class extends SH_MemoryPointer
                 #include *i %A_LineFile%\..\Imports\IC_CrusadersGameDataSet64_Import.ahk
                 return
             }
-            this.CrusadersGame.Defs.CrusadersGameDataSet.BasePtr := new SH_BasePtr(this.BasePtr.BaseAddress, this.ModuleOffset, this.StructureOffsets)
+            this.CrusadersGame.Defs.CrusadersGameDataSet.BasePtr := new SH_BasePtr(this.BasePtr.BaseAddress, this.ModuleOffset, this.StructureOffsets, "CrusadersGameDataSet")
             this.ResetBasePtr(this.CrusadersGame.Defs.CrusadersGameDataSet)
         }
     }
