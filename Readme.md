@@ -3,11 +3,13 @@
 ``4.4.6 - 2025-11-03``
 **Welcome** to Script Hub's new home!
 
+``git remote set-url origin <new url>`` is your friend.
+
 It has been a long time but I think it's time I bring the script over to my profile so I can have better control over the repository. My updates to Script Hub will be made here from now on. Thanks for your support!
 
  The following notice's statements are still true. Emmote's addons have returned to her own repository again. Imp's are still in the IC_Addon-1 repository on *this* Github profile as linked below. LevelUp addon is still required to function but many addons in the repositories linked are highly recommended.
 
-I have included a batch file to help the transition of connecting most common addons (and mine) to the main script easier. It is [here](https://github.com/antilectual/Idle-Champions/tree/main/mklink-default.txt). Just edit it to use the directories you personally use, rename it .bat, and run to link the addons into Script Hub. I recommend having the script and addons downloaded through Github desktop (or other git client) to make keeping them updated easier.
+I have included a batch file to help the transition of connecting most common addons (and mine) to the main script easier if inot ousing the remote origin change. It is [here](https://github.com/antilectual/Idle-Champions/tree/main/mklink-default.txt). Just edit it to use the directories you personally use, rename it .bat, and run to link the addons into Script Hub. I recommend having the script and addons downloaded through Github desktop (or other git client) to make keeping them updated easier.
 
 ***Note***: Settings that may need to be re-updated - BrivGemFarm, Theme Manager, and Addon Management (Re-enabling the addons). Copying settings from previous versions should work fine also. Settings from addons should remain if properly using the junctions (mklink file).
   
