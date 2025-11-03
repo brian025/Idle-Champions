@@ -15,7 +15,6 @@ mklink /j "D:\Idle-Champions\AddOns\IC_EGSOverlaySwatter_Extra"                 
 mklink /j "D:\Idle-Champions\AddOns\IC_GameSettingsFix_Extra"                       "D:\Addons\Emmote\IC_Addons\IC_Addons\IC_GameSettingsFix_Extra"
 mklink /j "D:\Idle-Champions\AddOns\IC_HybridTurboStacking_PreferredEnemies_Extra"  "D:\Addons\Emmote\IC_Addons\IC_Addons\IC_HybridTurboStacking_PreferredEnemies_Extra"
 mklink /j "D:\Idle-Champions\AddOns\IC_NoModronAdventuringEmmote_Extra"             "D:\Addons\Emmote\IC_Addons\IC_Addons\IC_NoModronAdventuring_Extra"
-mklink /j "D:\Idle-Champions\AddOns\IC_PotionSustain_Extra"                         "D:\Addons\Emmote\IC_Addons\IC_Addons\IC_PotionSustain_Extra"
 :: ImpEGamer
 mklink /j "D:\Idle-Champions\AddOns\IC_AreaTiming_Extra"                            "D:\Addons\ImpEGamer\IC_Addons\IC_AreaTiming_Extra"
 mklink /j "D:\Idle-Champions\AddOns\IC_BrivGemFarm_BrivFeatSwap_Extra"              "D:\Addons\ImpEGamer\IC_Addons\IC_BrivGemFarm_BrivFeatSwap_Extra"
