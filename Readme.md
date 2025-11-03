@@ -1,13 +1,20 @@
 # IC Script Hub
-## ``New: v4.4.3 - 2025-10-19:``
-**Important**: This update requires updated addons for them to function properly. I have converted ImpEGamer's and Emmote's to function with the new version and they can be found at [https://github.com/antilectual/IC_Addons-1/tree/Anti-Changes](https://github.com/antilectual/IC_Addons-1/tree/Anti-Changes) (for ImpEGamer's like Levelup) and [https://github.com/antilectual/IC_Addons-2/tree/Anti-Changes](https://github.com/antilectual/IC_Addons-2/tree/Anti-Changes) for Emmote's (until I complete a pull request).
+## ``News: ``
+``4.4.6 - 2025-11-03``
+**Welcome** to Script Hub's new home!
+
+ The following notice's statements are still true. Emmote's addons have returned to her own repository again. Imp's are still in the IC_Addon-1 repository on *this* Github profile as linked below. LevelUp addon is still required to function but many addons in the repositories linked are highly recommended.
+
+
+``v4.4.3 - 2025-10-19:``
+**Important**: This update requires updated addons for them to function properly. I have converted ImpEGamer's and Emmote's to function with the new version and they can be found at [https://github.com/antilectual/IC_Addons-1/tree/Anti-Changes](https://github.com/antilectual/IC_Addons-1/tree/Anti-Changes) (for ImpEGamer's like Levelup) and [https://github.com/Emmote/IC_Addons](https://github.com/Emmote/IC_Addons) for Emmote's (until I complete a pull request).
 
 ##
 2025-08-02:  
 
 Added important [imports](#imports) section. Please read it before running IC Script Hub.
 
-As of game version 629, due to changes with hotkeys the [LevelUp](https://github.com/imp444/IC_Addons/tree/main/IC_BrivGemFarm_LevelUp_Extra) addon is required to run smoothly. Refer to [Addons.md](Addons.md) for links to more commonly used addons.
+As of game version 629, due to changes with hotkeys the [LevelUp](https://github.com/antilectual/IC_Addons-1/tree/Anti-Changes/IC_BrivGemFarm_LevelUp_Extra) addon is required to run smoothly. Refer to [Addons.md](Addons.md) for links to more commonly used addons.
 
 ---  
 ## Introduction
