@@ -566,21 +566,22 @@ Class AddonManagement
     ;       Return: None
     ;
     ; ------------------------------------------------------------
-    GetAddon(Name, Version, byref i := "")
+    GetAddon(Name, Version, byref i := "", enabledOnly := False)
     {
-        eaLength := this.EnabledAddons.Count()
-        ; try to find a match
-         loop %eaLength%
-         {
-            if (Name == this.EnabledAddons[A_Index].Name)
-            {
-                for k,v in this.Addons
-                {
-                    if (v.Name == Name AND SH_VersionHelper.IsVersionSameOrNewer(v.Version,Version)){            
-                        i := A_Index
-                        return v
-                    }
-                }
+        ; try to find exact match
+        for k,v in this.Addons
+        {
+            if (v.Name == Name AND v.Version == Version) {
+                i := k
+                return v
+            }
+        }
+        ; try to higher version match
+        for k,v in this.Addons
+        {
+            if (v.Name == Name AND SH_VersionHelper.IsVersionSameOrNewer(v.Version,Version)) {
+                i := k
+                return v
             }
         }
         ; failed to match
