@@ -777,14 +777,14 @@ class IC_SharedFunctions_Class extends SH_SharedFunctions
     ; Waits for the game to be in a ready state
     WaitForGameReady( timeout := 90000)
     {
-        timeout := new SH_SharedTimers()
+        timer := new SH_SharedTimers()
         g_SharedData.LoopString := "Waiting for game started.."
         gameStarted := 0
         ; wait for game to start
-        while( timeout.IsTimeUp(timeout) AND !gameStarted) ; start timer
+        while( timer.IsTimeUp(timeout) AND !gameStarted) ; start timer
         {
             gameStarted := this.Memory.ReadGameStarted()
-            if(!gameStarted AND timeout.IsTimeUp(Floor(3 * timeout / 4))) ; Game has not loaded after a long time, recheck.
+            if(!gameStarted AND timer.IsTimeUp(Floor(3 * timeout / 4))) ; Game has not loaded after a long time, recheck.
             {
                 existingProcessID := g_UserSettings[ "ExeName" ]
                 Process, Exist, %existingProcessID% ; Give another minute and retest. If failed, retry one time.
