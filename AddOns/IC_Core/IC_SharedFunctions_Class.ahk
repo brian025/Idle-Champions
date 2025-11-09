@@ -781,7 +781,7 @@ class IC_SharedFunctions_Class extends SH_SharedFunctions
         g_SharedData.LoopString := "Waiting for game started.."
         gameStarted := 0
         ; wait for game to start
-        while( timer.IsTimeUp(timeout) AND !gameStarted) ; start timer
+        while( !timer.IsTimeUp(timeout) AND !gameStarted) ; start timer
         {
             gameStarted := this.Memory.ReadGameStarted()
             if(!gameStarted AND timer.IsTimeUp(Floor(3 * timeout / 4))) ; Game has not loaded after a long time, recheck.
@@ -809,7 +809,7 @@ class IC_SharedFunctions_Class extends SH_SharedFunctions
         ; wait for offline progress to finish
         g_SharedData.LoopString := "Waiting for offline progress.."
         offlineDone := 0
-        while( timer.IsTimeUp(timeout) AND !offlineDone)
+        while( !timer.IsTimeUp(timeout) AND !offlineDone)
         {
             offlineDone := this.Memory.ReadOfflineDone()
             Sleep, 250
