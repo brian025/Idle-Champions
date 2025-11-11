@@ -81,11 +81,13 @@ class ArrFnc
     {   
         if(!array1.MaxIndex()) ; Array test
             return ""
+        if(ObjGetBase(array1).__Class == "GameObjectStructure") ; don't arrayString gameObjects (recursion)
+            return
         itemCount := array1.Count()
         var := "[ "
         loop, %itemCount%
         {
-            if IsObject(array1[A_Index])
+            if (IsObject(array1[A_Index]))
                   var .= this.GetAlphaNumericArrayString(array1[A_Index]) . "] "
             if ( A_Index < itemCount )
             var .= array1[A_Index] . ", "
