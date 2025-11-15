@@ -76,6 +76,19 @@ class ArrFnc
         return var
     }
 
+    ; Reverses the order of the object array passed in. ({}, not [])
+    ReverseJObjArray(objArray)
+    {
+        loopCount := Floor(objArray.Count() / 2)
+        Loop %loopCount%
+        {
+            temp := objArray[A_Index]
+            lastIndex := objArray.Count() - (A_Index - 1)
+            objArray[A_Index] := objArray[lastIndex]
+            objArray[lastIndex] := temp
+        }
+    }
+
     ; Creates a string from an array. e.g. [1, F2, q, 6]
     GetAlphaNumericArrayString(array1)
     {   
