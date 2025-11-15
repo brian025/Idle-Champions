@@ -94,7 +94,7 @@ class ArrFnc
     {   
         if(!array1.MaxIndex()) ; Array test
             return ""
-        if(ObjGetBase(array1).__Class == "GameObjectStructure") ; don't arrayString gameObjects (recursion)
+        if(ObjGetBase(array1).__Class == "GameObjectStructure") ; don't arrayString gameObjects (recursion) ; TODO: Base on exclusion list rather than based on addon that might not be used.
             return
         itemCount := array1.Count()
         var := "[ "
