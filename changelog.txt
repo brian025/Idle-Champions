@@ -5,6 +5,8 @@ November 15, 2025
     Fixed bug where blank variable being copied in cloning process.
     Fixed a possible recursion error location.
     Added new Imports and AreaHasArmoredEnemy and GetActiveEnemies to memory functions.
+    Added FontSize to the possible settings in IC Script Hub's settings.json for the oldies.
+    
 
 November 10, 2025
     Fixed button locations in addon management.
