@@ -652,7 +652,7 @@ class GameObjectStructure
         this.LastDictIndex := {}
         for k,v in this
         {
-            if(!IsObject(v) OR !ObjGetBase(v).__Class == "GameObjectStructure" OR k == "BasePtr")
+            if(!IsObject(v) OR !(ObjGetBase(v).__Class == "GameObjectStructure") OR k == "BasePtr")
                 continue
             if(v.IsAddedIndex)
                 this[k] := "", this.Delete(k)
