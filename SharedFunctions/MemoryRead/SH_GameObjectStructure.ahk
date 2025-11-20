@@ -210,6 +210,8 @@ class GameObjectStructure
             key := keyReadObj.Read()
             if(index == this.LastDictIndex[key])                                            ; Use previously created object if it is still being used.
                 return this.DictionaryObject[key]                                           ; Return cached key
+            else if (key == "")
+                return this.ReturnGameObject("")
             else
                 this.DictionaryObject[key] := ""                                            ; Clear cached key if it exists.
             GameObjectStructure.ReadIsLocked := True                                        ; Enable Lock before building entry
@@ -644,7 +646,6 @@ class GameObjectStructure
         GameObjectStructure.ReadIsLocked := wasLocked                                       ; Reset lock before return
     }
 
-
     ResetCollections()
     {
         this.DictionaryObject := {}
@@ -657,6 +658,19 @@ class GameObjectStructure
                 this[k] := "", this.Delete(k)
             else
                 this[k].ResetCollections()
+        }
+    }
+
+    ResetUnstableCollectionsOnly()
+    {
+        for k,v in this
+        {
+            if(!IsObject(v) OR !(ObjGetBase(v).__Class == "GameObjectStructure") OR k == "BasePtr")
+                continue
+            if(v.IsAddedIndex AND GameObjectStructure.SystemTypes[this._CollectionKeyType] == "")
+                this[k] := "", this.Delete(k)
+            else
+                this[k].ResetUnstableCollectionsOnly()
         }
     }
 
